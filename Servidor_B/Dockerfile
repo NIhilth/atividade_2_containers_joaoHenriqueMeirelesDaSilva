@@ -1,5 +1,5 @@
 #imagem que vamos usar de base
-FROM node
+FROM node:14.17.6
 
 #diretório padrão
 WORKDIR /

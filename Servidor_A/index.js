@@ -12,9 +12,14 @@ const usuarios = [
         user: "bruno",
         password: "98765"
     },
+    {
+        id: 3,
+        user: "bruna",
+        password: "45678"
+    },
 ]
 
-app.listen(port, () => { console.log("Porta: ", port)})
+app.listen(port, () => { console.log("Porta: ", port) })
 
 app.use(express.json());
 
@@ -30,13 +35,18 @@ app.post('/cadastrar', (req, res) => {
     res.send("Usuário inserido");
 })
 
-app.get('/verificar', (req, res) => {
+app.post('/verificar', async (req, res) => {
     const usuarioLogin = req.body.user
-    for(const usuario of usuarios){
-        if(usuario.password == usuarioLogin.password && usuario.user == usuarioLogin.user){
-            res.send(true)
+    console.log(req.body);
+    for (const usuario of usuarios) {
+        try {
+            if (usuario.password == usuarioLogin.password && usuario.user == usuarioLogin.user) {
+                res.json(true)
+                return
+            }
+        } catch (erro) {
+            console.log(erro.message);
         }
     }
-
-    res.send(false)
+    res.json(false)
 })

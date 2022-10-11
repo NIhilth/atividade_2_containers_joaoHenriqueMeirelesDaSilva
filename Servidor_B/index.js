@@ -1,5 +1,4 @@
-import fetch from 'node-fetch';
-
+const nodefetch = require("node-fetch")
 const express = require("express")
 const app = express()
 const port = process.env.PORT || 3001;
@@ -16,7 +15,7 @@ const produtos = [
     },
 ]
 
-app.listen(port, () => { console.log("Porta: ", port)})
+app.listen(port, () => { console.log("Porta: ", port) })
 
 app.use(express.json());
 
@@ -24,18 +23,25 @@ app.get('/', (req, res) => {
     res.json(produtos)
 })
 
-app.post('/cadastrar', async (req, res) => {
+app.post('/cadastrar', (req, res) => {
     const produto = req.body.product
-    const usuario = req.body.user
+    const user = req.body.user
 
-    if(await fetch('http://localhost:8080/verificar', {
+    nodefetch('http://servidorA:3000/verificar', {
         method: 'POST',
-        body: JSON.stringify({produto, usuario})
-    })){
-        produtos.push(produto)
-        
-        res.send("Produto inserido");
-    } else {
-        res.send("Usuário inválido")
-    }
+        body: JSON.stringify({ user })
+    }).then(response => response.json())
+    .then(resposta => {
+
+        console.log(resposta);
+
+        if (resposta) {
+            // produtos.push(produto)
+
+            res.send("Produto inserido");
+        } else {
+            res.send("Usuário inválido")
+        }
+    })
+
 })

@@ -2,10 +2,10 @@
   "name": "servidor_b",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "produto.controller.js",
   "scripts": {
-    "start": "node index.js",
-    "serve": "nodemon index.js",
+    "start": "node produto.controller.js",
+    "serve": "nodemon produto.controller.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "firebase": "^9.12.1",
     "node-fetch": "^2.0.0",
     "nodemon": "^2.0.20"
   }
